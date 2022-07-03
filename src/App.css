@@ -1,0 +1,36 @@
+.App {
+  text-align: center;
+  color: white;
+}
+
+.Card{
+  background-color: rgb(87, 87, 87);
+  margin: auto ;
+  margin-top: 15rem;
+  width: 35%;
+  padding: 2rem;
+  box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  opacity: 0.8;
+}
+.date_weather{
+  display: flex;
+  margin-left: 6.5rem;
+}
+.date{
+  padding-top: 2rem;
+  padding-left: 1rem;
+  text-align: left;
+}
+.Icon_weather{
+  width: 200px;
+}
+.button{
+  width: 100px;
+  border-radius: 9%;
+  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.3);
+}
+button:hover {
+  background-color: red;
+  color: white;
+}
