@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 const Weather = () => {
 
     const [weather, setWeather] = useState("");
-    const [temp, setTemp] = useState (0);
-    const [isFahrenheit, setIsFahrenheit] =useState (true);
+    const [temp, setTemp] = useState(0);
+    const [isConvert, setIsConvert] = useState(true);
 
     useEffect(() => {
         function success(pos) {
@@ -33,24 +33,17 @@ const Weather = () => {
     console.log(weather)
     console.log(temp)
 
-    const ConvertTemp = () => {
-        if (isFahrenheit) {
-            // Si es F° transformará a Celsius
-            setTemp((temp - 32 ) * 5/9)
-            setIsFahrenheit(false)
-        }else{
-            setTemp((temp * 9/5) + 32)
-            setIsFahrenheit(true)
-        }
-    }
+
+    
+    const convertToCelsius = (kelvin) => kelvin - 273.15;   // Convertir los datos de la api (kelvin a Celsius)
+    const convertToFahrenheit = () => (weather.main?.temp - 273.15) * (9 / 5) + 32;     // Convertir de kelvin a Fahrenheit
 
 
 
-
-
-    if(temp < 15){
+     // Fondo de acuerdo a la temperatura, Si la temperatura es mayor que 16 ° se activa el fondo de nubes claras, si no se activa el fondo de nubes oscuras
+    if (convertToCelsius(temp) > 16) {
         document.body.style.background = " url('https://images8.alphacoders.com/805/thumb-1920-805636.jpg')  ";
-    }else{
+    } else {
         document.body.style.background = " url('https://images3.alphacoders.com/105/thumb-1920-1050171.jpg') no-repeat ";
     }
 
@@ -75,12 +68,12 @@ const Weather = () => {
                     <p><i className="fa-solid fa-cloud"></i> Humidity: {weather.main?.humidity}%</p>
                     <p><i className="fa-solid fa-temperature-three-quarters"></i> Pressure: {weather.main?.pressure}mb</p>
                 </div>
-                
+
             </div>
             <div>
-                    <p> <b> {temp.toFixed(2)} { isFahrenheit ? "Fahrenheit" : "Celsius"}</b></p>
-                    <button className='button' onClick={ConvertTemp} >F° / C°</button>
-                </div>
+                <p>{isConvert ? `${(convertToCelsius(temp)).toFixed(2)} Celsius` : `${(convertToFahrenheit()).toFixed(2)} Fahrenheit`}</p>
+                <button className='button' onClick={() => setIsConvert(!isConvert)}>°F/°C</button>
+            </div>
         </div>
     );
 };
